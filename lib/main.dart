@@ -18,7 +18,7 @@ class CarApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: LoginPage(),
+      home: new LoginPage(auth: new Authen(),),
     );
   }
 }
