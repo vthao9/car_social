@@ -1,6 +1,8 @@
-import 'package:car_social/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'PostPage.dart';
+import 'Authen.dart';
+import 'package:car_social/IsLogin.dart';
+import 'LoginPage.dart';
 
 void main () {
   
@@ -16,7 +18,7 @@ class CarApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: PostPage(),
+      home: LoginPage(),
     );
   }
 }

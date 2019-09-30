@@ -1,12 +1,12 @@
+import 'package:car_social/Authen.dart';
 import 'package:flutter/material.dart';
-import 'IsLogin.dart';
 
 class PostPage extends StatefulWidget{
   PostPage({
     this.auth,
     this.ifLogout,
   });
-  final isLogin auth;
+  final Authentication auth;
   final VoidCallback ifLogout;
   @override
   State<StatefulWidget> createState() {
@@ -18,7 +18,7 @@ class PostPage extends StatefulWidget{
 class _PostPageState extends State<PostPage>{
   void _logout()async{
     try{
-      await widget.auth.auth.SignOut();
+      await widget.auth.SignOut();
       widget.ifLogout();
     }
     catch(a){

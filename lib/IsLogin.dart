@@ -4,12 +4,10 @@ import 'PostPage.dart';
 import 'Authen.dart';
 
 class isLogin extends StatefulWidget{
-  isLogin({
-    this.auth
-  });
+  isLogin({this.auth});
   final Authentication auth;
   State<StatefulWidget> createState(){
-    return _IsLoginState();
+    return _isLoginState();
   }
 }
 
@@ -18,7 +16,7 @@ enum LoginStatus{
   login,
 }
 
-class _IsLoginState extends State<isLogin>{
+class _isLoginState extends State<isLogin>{
   LoginStatus loginStatus = LoginStatus.logout;
 
   @override
@@ -49,12 +47,12 @@ class _IsLoginState extends State<isLogin>{
     switch(loginStatus){
       case LoginStatus.logout:
       return new LoginPage(
-        auth: widget,
+        auth: widget.auth,
         ifLogin: _login,
       );
       case LoginStatus.login:
       return new PostPage(
-        auth: widget,
+        auth: widget.auth,
         ifLogout: _logout,
       );
     }
