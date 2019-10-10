@@ -1,5 +1,6 @@
 import 'package:car_social/Authen.dart';
 import 'package:flutter/material.dart';
+import 'upload.dart';
 
 class PostPage extends StatefulWidget{
   PostPage({
@@ -47,7 +48,14 @@ class _PostPageState extends State<PostPage>{
                   icon: new Icon(Icons.add_a_photo),
                   iconSize: 50.0,
                   color: Colors.white,
-                  onPressed: null
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context){
+                          return new uploadPage();
+                        })
+                    );
+                  }
               ),
               new IconButton(
                   icon: new Icon(Icons.not_interested),
