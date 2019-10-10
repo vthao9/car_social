@@ -4,7 +4,7 @@ import 'PostPage.dart';
 import 'Authen.dart';
 
 class isLogin extends StatefulWidget{
-  isLogin({this.auth});
+  isLogin({this.auth,});
   final Authentication auth;
   State<StatefulWidget> createState(){
     return _isLoginState();

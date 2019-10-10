@@ -134,7 +134,7 @@ class LoginState extends State<LoginPage>{
           child: new Text("Login", style: new TextStyle(fontSize: 20.0)),
           textColor: Colors.white,
           color: Colors.tealAccent,
-          onPressed: save,
+          onPressed: submit,
         ),
 
         new FlatButton(

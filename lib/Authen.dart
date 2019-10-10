@@ -8,13 +8,14 @@ abstract class Authentication{
 }
 
 class Authen implements Authentication{
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   Future<String> SignIn(String email, String password) async{
-    FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)) as FirebaseUser;
+    final FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
     return user.uid;
   }
   Future<String> SignUp(String email, String password) async{
-    FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)) as FirebaseUser;
+    final FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
     return user.uid;
   }
   Future<void> SignOut() async{

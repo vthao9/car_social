@@ -5,7 +5,7 @@ import 'package:car_social/IsLogin.dart';
 import 'LoginPage.dart';
 
 void main () {
-  
+
   runApp(new CarApp());
 }
 
@@ -18,7 +18,7 @@ class CarApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: new LoginPage(auth: new Authen(),),
+      home: isLogin(auth: Authen(),),
     );
   }
 }
