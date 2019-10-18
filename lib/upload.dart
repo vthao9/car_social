@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:car_social/PostPage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 
 class uploadPage extends StatefulWidget{
@@ -15,6 +17,7 @@ class _uploadPageState extends State<uploadPage>{
   File selectanimage;
   final formKey = new GlobalKey<FormState>();
   String _myInput;
+  String url;
 
   Future getImage() async{
     var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -32,6 +35,45 @@ class _uploadPageState extends State<uploadPage>{
     else{
       return false;
     }
+  }
+
+  void saveInDatabase(url){
+    var dbtimeOfUpload = new DateTime.now();
+    var dbDate = new DateFormat('MMM d, yyyy');
+    var dbTime = new DateFormat('EEEE, hh:mm aaa');
+    String date = dbDate.format(dbtimeOfUpload);
+    String time = dbTime.format(dbtimeOfUpload);
+    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    var data = {
+      "image": url,
+      "description": _myInput,
+      "date": date,
+      "time": time,
+    };
+    databaseReference.child("Posts").push().set(data);
+  }
+
+  void upload_to_firebase() async{
+    if(Save()){
+      final StorageReference storeImage = FirebaseStorage.instance.ref().child("Store Images");
+      var timeOfUpload = new DateTime.now();
+      final StorageUploadTask uploadTask = storeImage.child(timeOfUpload.toString() + ".jpg").putFile(selectanimage);
+      var getImage = await (await uploadTask.onComplete).ref.getDownloadURL();
+      url = getImage.toString();
+      print("The image url = " + url);
+      goPostPage();
+      saveInDatabase(url);
+    }
+  }
+  
+  void goPostPage(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context){
+          return new PostPage();
+        }
+        )
+    );
   }
   
   @override
@@ -54,7 +96,8 @@ class _uploadPageState extends State<uploadPage>{
         key: formKey,
         child: Column(
           children: <Widget>[
-            Image.file(selectanimage, width: 400, height: 200,),
+            SizedBox(height: 10,),
+            Image.file(selectanimage, width: 550, height: 250,),
             SizedBox(height: 15,),
             TextFormField(
               decoration: new InputDecoration(labelText: 'Description of Photo'),
@@ -71,7 +114,7 @@ class _uploadPageState extends State<uploadPage>{
               child: Text("Add"),
               textColor: Colors.white,
               color: Colors.tealAccent,
-              onPressed: Save,
+              onPressed: upload_to_firebase,
             )
           ],
         ),
