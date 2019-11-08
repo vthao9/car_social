@@ -1,17 +1,19 @@
 import 'package:car_social/Authen.dart';
 import 'package:car_social/CarEventPost.dart';
 import 'package:car_social/EventPosts.dart';
+import 'package:car_social/HelpUpload.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'HelpPage.dart';
+import 'CarEvent.dart';
 import 'PostPage.dart';
 import 'SalesPage.dart';
+import 'HelpPosts.dart';
 import 'upload.dart';
 import 'package:car_social/Posts.dart';
 import 'package:car_social/Comment.dart';
 
-class EventPage extends StatefulWidget{
-  EventPage({
+class HelpPage extends StatefulWidget{
+  HelpPage({
     this.auth,
     this.ifLogout,
   });
@@ -20,25 +22,25 @@ class EventPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _EventPageState();
+    return _HelpPageState();
   }
 }
 
-class _EventPageState extends State<EventPage>{
-  List<EventPosts> posts = [];
+class _HelpPageState extends State<HelpPage>{
+  List<HelpPosts> posts = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child("Event Posts");
+    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child("Help Posts");
     postsRef.once().then((DataSnapshot snap){
       var KEYS = snap.value.keys;
       var DATA = snap.value;
       posts.clear();
       for(var singleKey in KEYS){
-        EventPosts post = new EventPosts(
-          DATA[singleKey]['event_title'],
-          DATA[singleKey]['event_description'],
+        HelpPosts post = new HelpPosts(
+          DATA[singleKey]['title'],
+          DATA[singleKey]['description'],
           DATA[singleKey]['date'],
           DATA[singleKey]['time'],
         );
@@ -65,7 +67,7 @@ class _EventPageState extends State<EventPage>{
     // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Event Forum'),
+        title: new Text('Help Forum'),
       ),
       drawer: new Drawer(
         child: new ListView(
@@ -128,7 +130,7 @@ class _EventPageState extends State<EventPage>{
         child: posts.length == 0 ? new Text("There are no post.") : new ListView.builder(
             itemCount: posts.length,
             itemBuilder: (_, index){
-              return PostsUI(posts[index].event_title, posts[index].event_description, posts[index].time, posts[index].date);
+              return PostsUI(posts[index].title, posts[index].description, posts[index].time, posts[index].date);
             }
         ),
       ),
@@ -148,7 +150,7 @@ class _EventPageState extends State<EventPage>{
                     Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context){
-                          return new EventPostPage();
+                          return new HelpUpload();
                         })
                     );
                   }
@@ -159,7 +161,7 @@ class _EventPageState extends State<EventPage>{
       ),
     );
   }
-  Widget PostsUI(String event_title, String event_description, String date, String time){
+  Widget PostsUI(String title, String description, String date, String time){
     return new Card(
       elevation: 10,
       margin: EdgeInsets.all(15),
@@ -185,13 +187,13 @@ class _EventPageState extends State<EventPage>{
             ),
             SizedBox(height: 15,),
             new Text(
-              "Event Title: " + event_title,
+              "Title: " + title,
               style: Theme.of(context).textTheme.headline,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 15,),
             new Text(
-              "Description: " + event_description,
+              "Description of Problem: " + description,
               style: Theme.of(context).textTheme.body1,
               textAlign: TextAlign.center,
             ),

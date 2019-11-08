@@ -2,6 +2,7 @@ import 'package:car_social/Authen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'CarEvent.dart';
+import 'HelpPage.dart';
 import 'SalesPage.dart';
 import 'upload.dart';
 import 'package:car_social/Posts.dart';
@@ -103,6 +104,17 @@ class _PostPageState extends State<PostPage>{
                     context,
                     MaterialPageRoute(builder: (context){
                       return new SalesPage();
+                    })
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Help Forum'),
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context){
+                      return new HelpPage();
                     })
                 );
               },
