@@ -4,6 +4,7 @@ import 'package:car_social/EventPosts.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'PostPage.dart';
+import 'SalesPage.dart';
 import 'upload.dart';
 import 'package:car_social/Posts.dart';
 import 'package:car_social/Comment.dart';
@@ -93,6 +94,17 @@ class _EventPageState extends State<EventPage>{
                     context,
                     MaterialPageRoute(builder: (context){
                       return new EventPage();
+                    })
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Sales Forum'),
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context){
+                      return new SalesPage();
                     })
                 );
               },
