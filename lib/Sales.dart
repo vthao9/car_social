@@ -50,6 +50,8 @@ class _SalesUploadState extends State<SalesUpload>{
     var data = {
       "image": url,
       "description": _myInput,
+      "price": price,
+      "contact": contact,
       "date": date,
       "time": time,
     };
@@ -109,6 +111,25 @@ class _SalesUploadState extends State<SalesUpload>{
               },
               onSaved: (value){
                 return _myInput = value;
+              },
+            ),
+            SizedBox(height: 15,),
+            TextFormField(
+              decoration: new InputDecoration(labelText: 'Price'),
+              validator: (value1){
+                return value1.isEmpty ? "Price is required" : null;
+              },
+              onSaved: (value1){
+                return price = value1;
+              },
+            ),
+            TextFormField(
+              decoration: new InputDecoration(labelText: 'Contact Info'),
+              validator: (value1){
+                return value1.isEmpty ? "Contact Info is required" : null;
+              },
+              onSaved: (value2){
+                return contact = value2;
               },
             ),
             SizedBox(height: 15,),

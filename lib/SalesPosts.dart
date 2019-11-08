@@ -1,4 +1,4 @@
 class SalesPosts{
-  String date, description, image, time;
-  SalesPosts(this.image, this.description, this.date, this.time);
+  String date, description, price, contact, image, time;
+  SalesPosts(this.image, this.description, this.price, this.contact, this.date, this.time);
 }

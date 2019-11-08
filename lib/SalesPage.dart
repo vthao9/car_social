@@ -38,6 +38,8 @@ class _SalesPageState extends State<SalesPage>{
         SalesPosts post = new SalesPosts(
           DATA[singleKey]['image'],
           DATA[singleKey]['description'],
+          DATA[singleKey]['price'],
+          DATA[singleKey]['contact'],
           DATA[singleKey]['date'],
           DATA[singleKey]['time'],
         );
@@ -116,7 +118,7 @@ class _SalesPageState extends State<SalesPage>{
         child: posts.length == 0 ? new Text("There are no post.") : new ListView.builder(
             itemCount: posts.length,
             itemBuilder: (_, index){
-              return PostsUI(posts[index].image, posts[index].description, posts[index].time, posts[index].date);
+              return PostsUI(posts[index].image, posts[index].description, posts[index].price, posts[index].contact, posts[index].time, posts[index].date);
             }
         ),
       ),
@@ -147,7 +149,7 @@ class _SalesPageState extends State<SalesPage>{
       ),
     );
   }
-  Widget PostsUI(String image, String description, String date, String time){
+  Widget PostsUI(String image, String description, String price, String contact, String date, String time){
     return new Card(
       elevation: 10,
       margin: EdgeInsets.all(15),
@@ -176,22 +178,21 @@ class _SalesPageState extends State<SalesPage>{
             SizedBox(height: 10,),
             new Text(
               description,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle,
               textAlign: TextAlign.center,
             ),
-//            new RaisedButton(
-//              child: new Text("Comment", style: new TextStyle(fontSize: 15)),
-//              textColor: Colors.black,
-//              color: Colors.tealAccent,
-//              onPressed: (){
-//                Navigator.push(
-//                    context,
-//                    MaterialPageRoute(builder: (context){
-//                      return new CommentPage();
-//                    })
-//                );
-//              },
-//            ),
+            SizedBox(height: 15,),
+            new Text(
+              "Price: " + price,
+              style: Theme.of(context).textTheme.body1,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 15,),
+            new Text(
+              "Contact Info: " + contact,
+              style: Theme.of(context).textTheme.body1,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
